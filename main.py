@@ -65,9 +65,9 @@ def TrainenEnPlotten():
                 trainings=100,
                validations=1000)
 
-loop = True
+  menu()
 
-while loop:  ## While loop which will keep going until loop = False
+def menu():  ## While loop which will keep going until loop = False
     print_menu()  ## Displays menu
     choice = int(input("Enter your choice [1-5]: "))
 
@@ -80,15 +80,16 @@ while loop:  ## While loop which will keep going until loop = False
         start(player_o=my_random_agent)
     elif choice == 3:
       print("Menu 3 has been selected")
-      ## You can add your code or functions here
-      rookie_agent = MyRookieAgent()
-      start(player_o=rookie_agent)
+      
+      
     elif choice == 4:
         print("Menu 4 has been selected")
-      
+        my_agent = MyAgent
     elif choice == 5:
         print("Menu 5 has been selected")
         TrainenEnPlotten()
         loop = False  # This will make the while loop to end as not value of loop is set to False
     else:
         input("Wrong option selection. Enter any key to try again..")
+
+menu()
