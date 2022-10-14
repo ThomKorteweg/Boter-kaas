@@ -1,6 +1,6 @@
 import random
 
-from bke import MLAgent, is_winner, opponent, RandomAgent, train_and_plot, EvaluationAgent, start
+from bke import MLAgent, is_winner, opponent, RandomAgent, train_and_plot, EvaluationAgent, start, train, save, load
 
 
 class MyRandomAgent(EvaluationAgent):
@@ -30,19 +30,14 @@ class MyAgent(MLAgent):
         else:
             reward = 0
         return reward
-      
-
- 
- 
-
 
 def print_menu():  ## Your menu design here
     print(30 * "-", "MENU", 30 * "-")
-    print("1.versus")
-    print("2. Random agent")
-    print("3. trainen ")
-    print("4. Slim ")
-    print("5.plotten")
+    print("1. Versus")
+    print("2. Random speler")
+    print("3. Agent trainen ")
+    print("4. speel tegen getrainde Agent ")
+    print("5. Plotten")
     print(67 * "-")
 
 
@@ -52,7 +47,7 @@ def TrainenEnPlotten():
   my_agent = MyAgent()
   random_agent = RandomAgent()
   rookie_agent = MyRookieAgent()
-  
+
   train_and_plot(agent=my_agent,
                  validation_agent=random_agent,
                  iterations=50,
@@ -74,21 +69,30 @@ def menu():  ## While loop which will keep going until loop = False
     if choice == 1:
         print("Menu 1 has been selected")
         start()
+        menu()
     elif choice == 2:
         print("Menu 2 has been selected")
         my_random_agent = MyRandomAgent()
         start(player_o=my_random_agent)
+        menu()
     elif choice == 3:
       print("Menu 3 has been selected")
-      
-      
+      my_agent = MyAgent()
+      train(my_agent, 3000)
+      save(my_agent, "my_agent_3000")
+      print("Agent is getraint, kies optie 4 om tegen de agent te spelen!")
+      menu()
     elif choice == 4:
         print("Menu 4 has been selected")
-        my_agent = MyAgent
+        my_agent = MyAgent()
+        my_agent = load('MyAgent_3000')
+        start(player_x=my_agent)
+        menu()
     elif choice == 5:
         print("Menu 5 has been selected")
         TrainenEnPlotten()
-        loop = False  # This will make the while loop to end as not value of loop is set to False
+        menu()
+        loop = False  
     else:
         input("Wrong option selection. Enter any key to try again..")
 
